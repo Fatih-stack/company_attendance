@@ -20,7 +20,7 @@ Kurulum
 
 Depoyu Klonlayın
 
-git clone <repository_link>
+git clone https://github.com/Fatih-stack/company_attendance
 cd company_attendance
 
 Sanal Ortam Oluşturun
