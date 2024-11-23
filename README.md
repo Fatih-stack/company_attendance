@@ -21,6 +21,7 @@ Kurulum
 Depoyu Klonlayın
 
 git clone https://github.com/Fatih-stack/company_attendance
+
 cd company_attendance
 
 Sanal Ortam Oluşturun
