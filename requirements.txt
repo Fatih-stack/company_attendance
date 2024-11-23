@@ -1,0 +1,8 @@
+Django
+djangorestframework
+psycopg2
+celery
+django-celery-beat
+django-channels
+channels-redis
+drf-yasg

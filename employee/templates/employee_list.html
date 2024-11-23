@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Çalışan Listesi</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+</head>
+<body>
+    <h1>Çalışan Listesi</h1>
+    <table id="employeeTable" class="display">
+        <thead>
+            <tr>
+                <th>İsim</th>
+                <th>Giriş Saati</th>
+                <th>Çıkış Saati</th>
+                <th>Durum</th>
+            </tr>
+        </thead>
+    </table>
+    <script src="{% static 'server_side_datatable.js' %}"></script>
+</body>
+</html>
