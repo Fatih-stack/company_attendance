@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>İzin Talep Et</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>İzin Talep Et</h1>
+        <p>Hoş geldiniz, {{ user.username }}! <a href="{% url 'logout' %}">Çıkış Yap</a></p>
+    </header>
+
+    <main>
+        <form method="post">
+            {% csrf_token %}
+            <label for="leave_type">İzin Türü:</label>
+            <select id="leave_type" name="leave_type">
+                <option value="annual">Yıllık İzin</option>
+                <option value="sick">Hastalık İzni</option>
+            </select>
+
+            <label for="start_date">Başlangıç Tarihi:</label>
+            <input type="date" id="start_date" name="start_date" required>
+
+            <label for="end_date">Bitiş Tarihi:</label>
+            <input type="date" id="end_date" name="end_date" required>
+
+            <button type="submit">İzin Talep Et</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Şirket Personel Yönetimi. Tüm hakları saklıdır.</p>
+    </footer>
+</body>
+</html>

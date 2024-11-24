@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Ana Sayfa</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Şirket Personel Yönetim Sistemi</h1>
+        {% if user.is_authenticated %}
+            <p>Hoş geldiniz, {{ user.username }}! <a href="{% url 'logout' %}">Çıkış Yap</a></p>
+        {% else %}
+            <p>Lütfen <a href="{% url 'login' %}">giriş yapın</a>.</p>
+        {% endif %}
+    </header>
+
+    <nav>
+        <ul>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'employee_list' %}">Çalışan Listesi</a></li>
+                <li><a href="{% url 'attendance_checkin' %}">Giriş/Çıkış Yap</a></li>
+                <li><a href="{% url 'leave_request' %}">İzin Talep Et</a></li>
+                {% if user.is_staff %}
+                    <li><a href="{% url 'leave_approval' %}">İzin Onayları</a></li>
+                    <li><a href="{% url 'attendance_report' %}">Çalışma Saati Raporları</a></li>
+                {% endif %}
+            {% endif %}
+        </ul>
+    </nav>
+
+    <main>
+        <h2>Personel Yönetimi</h2>
+        <p>Bu sistem, çalışanların giriş/çıkış saatlerini ve izin süreçlerini yönetmek için tasarlanmıştır. Lütfen yukarıdaki menüden bir işlem seçin.</p>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Şirket Personel Yönetimi. Tüm hakları saklıdır.</p>
+    </footer>
+
+    <script src="{% static 'js/home_page_script.js' %}"></script>
+</body>
+</html>
