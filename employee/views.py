@@ -7,6 +7,9 @@ from .serializers import EmployeeSerializer, AttendanceSerializer, LeaveSerializ
 def home(request):
     return render(request, 'home.html')
 
+def profile(request):
+    return render(request, 'profile.html')  # Bu sayfa kullanıcı profil bilgilerini gösterecek
+
 # İzin Talep Etme Sayfası
 def leave_request(request):
     return render(request, 'leave_request.html')

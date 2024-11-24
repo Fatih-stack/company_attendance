@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Hata durumlarını kullanıcıya göstermek için bir kontrol ekleyin
-    const errorMessage = "\{\{ error_message\|default_if_none:'' \}\}";
+    const errorContainer = document.getElementById('error-container');
+    const errorMessage = errorContainer.getAttribute('data-error-message');
+    
     if (errorMessage) {
         alert(errorMessage);
     }
