@@ -1,54 +1,40 @@
-% load static %}
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>İzin Onayları</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
 </head>
 <body>
     <header>
         <h1>İzin Onayları</h1>
-        <p>Hoş geldiniz, {{ user.username }}! <a href="{% url 'logout' %}">Çıkış Yap</a></p>
     </header>
-
     <main>
         <table>
             <thead>
                 <tr>
-                    <th>Çalışan</th>
-                    <th>İzin Türü</th>
-                    <th>Başlangıç Tarihi</th>
-                    <th>Bitiş Tarihi</th>
+                    <th>Personel Adı</th>
+                    <th>İzin Tarihleri</th>
                     <th>Durum</th>
+                    <th>İşlem</th>
                 </tr>
             </thead>
             <tbody>
                 {% for leave in leave_requests %}
                 <tr>
-                    <td>{{ leave.employee }}</td>
-                    <td>{{ leave.leave_type }}</td>
-                    <td>{{ leave.start_date }}</td>
-                    <td>{{ leave.end_date }}</td>
+                    <td>{{ leave.employee.name }}</td>
+                    <td>{{ leave.start_date }} - {{ leave.end_date }}</td>
+                    <td>{{ leave.status }}</td>
                     <td>
-                        {% if leave.status == 'pending' %}
-                            <form method="post" action="{% url 'leave_approval' leave.id %}">
-                                {% csrf_token %}
-                                <button type="submit" name="action" value="approve">Onayla</button>
-                                <button type="submit" name="action" value="reject">Reddet</button>
-                            </form>
-                        {% else %}
-                            {{ leave.status }}
-                        {% endif %}
+                        <a href="{% url 'approve_leave' leave.id %}">Onayla</a>
+                        <a href="{% url 'reject_leave' leave.id %}">Reddet</a>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </main>
-
-    <footer>
-        <p>&copy; 2024 Şirket Personel Yönetimi. Tüm hakları saklıdır.</p>
-    </footer>
 </body>
 </html>

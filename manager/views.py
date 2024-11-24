@@ -1,4 +1,9 @@
 from django.shortcuts import render
+from django.contrib.auth.views import LogoutView
+
+class CustomLogoutView(LogoutView):
+    def get(self, request, *args, **kwargs):
+        return self.post(request, *args, **kwargs)
 
 # İzin Onaylama Sayfası
 def leave_approval(request):

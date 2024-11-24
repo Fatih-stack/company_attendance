@@ -1,4 +1,3 @@
-# company_attendance/settings.py
 import os
 from pathlib import Path
 
@@ -65,6 +64,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'company_attendance.wsgi.application'
 ASGI_APPLICATION = 'company_attendance.routing.application'
 
+# Veritabanı Ayarları
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -99,12 +99,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
-# Medya Dosyaları
+# Medya Dosyaları (isteğe bağlı)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-# settings.py
-LOGIN_REDIRECT_URL = '/'  # Kullanıcı giriş yaptıktan sonra ana sayfaya yönlendirilir
 
 # Varsayılan birincil anahtar alanı türü
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -116,8 +113,20 @@ REST_FRAMEWORK = {
     ]
 }
 
-# Celery Ayarları
+# Celery Ayarları (isteğe bağlı)
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
+
+LOGOUT_REDIRECT_URL = '/'  # Çıkış yaptıktan sonra yönlendirilmesi gereken sayfa
+
+# Şirket İş Başlangıç ve Bitiş Saatleri
+WORK_START_TIME = '08:00'
+WORK_END_TIME = '18:00'
+
+# Tatil Günleri
+HOLIDAYS = ['Cumartesi', 'Pazar']
+
+# Yeni İşe Başlayan Personel İçin İzin Tanımlaması
+NEW_EMPLOYEE_LEAVE_DAYS = 15

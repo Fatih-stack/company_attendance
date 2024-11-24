@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 from .models import Employee, Attendance, Leave
+from django.contrib.auth.views import LogoutView
 from .serializers import EmployeeSerializer, AttendanceSerializer, LeaveSerializer
 
 # Ana Sayfa
@@ -21,6 +22,11 @@ def attendance_checkin(request):
 # Çalışan Listesi Sayfası
 def employee_list(request):
     return render(request, 'employee_list.html')
+
+class CustomLogoutView(LogoutView):
+    def get(self, request, *args, **kwargs):
+        # GET isteğini de POST isteği gibi işleme koyarak çıkış işlemini gerçekleştirir
+        return self.post(request, *args, **kwargs)
 
 # API ViewSets
 class EmployeeViewSet(viewsets.ModelViewSet):
