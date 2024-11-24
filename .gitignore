@@ -28,6 +28,7 @@ share/python-wheels/
 *.rar
 *.exe
 *.json
+*.rdb
 MANIFEST
 
 # PyInstaller
