@@ -1,0 +1,42 @@
+<!-- staff_dashboard.html -->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yetkili Yönetim Paneli</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>Yetkili Yönetim Paneli</h1>
+        <table border="1" cellpadding="10" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Çalışan</th>
+                    <th>Tarih</th>
+                    <th>Giriş Saati</th>
+                    <th>Geç Kalma Süresi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for attendance in attendances %}
+                <tr>
+                    <td>{{ attendance.employee.name }}</td>
+                    <td>{{ attendance.date }}</td>
+                    <td>{{ attendance.check_in_time }}</td>
+                    <td>
+                        {% if attendance.is_late %}
+                            {{ attendance.is_late.hours }} saat {{ attendance.is_late.minutes }} dakika
+                        {% else %}
+                            Zamanında Geldi
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

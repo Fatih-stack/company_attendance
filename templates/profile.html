@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <title>Profil</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
 </head>
 <body>
     <header>
         <h1>Hoş Geldiniz, {{ user.username }}</h1>
         <p>Email: {{ user.email }}</p>
-        <p><a href="{% url 'logout' %}">Çıkış Yap</a></p>
+        <p><a href="{% url 'home' %}">Ana Sayfa</a></p>
+        <p><a href="{% url 'employee_logout' %}">Çıkış Yap</a></p>
     </header>
 </body>
 </html>

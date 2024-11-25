@@ -4,19 +4,20 @@
     {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personel Yönetim Sistemi</title>
+    <title>Personel Yönetimi Ana Sayfa</title>
     <link rel="stylesheet" href="{% static 'styles.css' %}">
 </head>
 <body>
     <header>
         <h1>Personel Yönetim Sistemi</h1>
         {% if user.is_authenticated %}
-            <p>Hoş Geldiniz, {{ user.username }}</p>
-            <a href="{% url 'logout' %}">Çıkış Yap</a>
+            <p>Hoş geldiniz, {{ user.username }}!</p>
+            <a href="{% url 'employee_logout' %}">Çıkış Yap</a>
         {% else %}
-            <a href="{% url 'login' %}">Giriş Yap</a>
+            <a href="{% url 'employee_login' %}">Giriş Yap</a>
         {% endif %}
     </header>
+
     <nav>
         <ul>
             {% if user.is_authenticated %}
@@ -30,6 +31,7 @@
             {% endif %}
         </ul>
     </nav>
+
     <main>
         <h2>Personel Yönetimi</h2>
         <p>Bu sistem, çalışanların giriş/çıkış saatlerini ve izin süreçlerini yönetmek için tasarlanmıştır. Lütfen yukarıdaki menüden bir işlem seçin.</p>

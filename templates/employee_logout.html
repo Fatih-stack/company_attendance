@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personel Çıkış Yap</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <div class="logout-container">
+        <h1>Çıkış Yap</h1>
+        <form method="post" action="{% url 'employee_logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="button logout-button">Çıkış Yap</button>
+        </form>
+        <a href="{% url 'home' %}">Ana Sayfaya Dön</a>
+    </div>
+</body>
+</html>

@@ -1,23 +1,18 @@
 from django.contrib import admin
-from .models import Employee, Attendance, Leave
+from .models import Employee, Attendance, LeaveRequest
 
-# Employee modeli için admin panelinde yönetim
-@admin.register(Employee)
 class EmployeeAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'position', 'email', 'date_joined')
+    list_display = ('user', 'name', 'position', 'email', 'annual_leave_days')
     search_fields = ('name', 'position', 'email')
-    list_filter = ('position', 'date_joined')
 
-# Attendance (Katılım) modeli için admin panelinde yönetim
-@admin.register(Attendance)
 class AttendanceAdmin(admin.ModelAdmin):
-    list_display = ('id', 'employee', 'check_in_time', 'check_out_time', 'status')
-    search_fields = ('employee__name', 'status')
-    list_filter = ('status', 'check_in_time')
+    list_display = ('employee', 'date', 'check_in_time', 'check_out_time')
+    search_fields = ('employee__name', 'date')
 
-# Leave (İzin) modeli için admin panelinde yönetim
-@admin.register(Leave)
-class LeaveAdmin(admin.ModelAdmin):
-    list_display = ('id', 'employee', 'leave_type', 'start_date', 'end_date', 'status')
-    search_fields = ('employee__name', 'leave_type', 'status')
-    list_filter = ('leave_type', 'status', 'start_date')
+class LeaveRequestAdmin(admin.ModelAdmin):
+    list_display = ('employee', 'start_date', 'end_date', 'approved')
+    search_fields = ('employee__name', 'start_date', 'end_date')
+
+admin.site.register(Employee, EmployeeAdmin)
+admin.site.register(Attendance, AttendanceAdmin)
+admin.site.register(LeaveRequest, LeaveRequestAdmin)
