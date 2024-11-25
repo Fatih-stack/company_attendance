@@ -13,4 +13,9 @@ urlpatterns = [
     path('staff/login/', LoginView.as_view(template_name='staff_login.html'), name='staff_login'),
     path('staff/logout/', views.staff_logout, name='staff_logout'),
     path('staff/dashboard/', views.staff_dashboard, name='staff_dashboard'),
+    path('employee/leaves/', views.employee_leaves, name='employee_leaves'),
+    path('leave/approve/<int:leave_id>/', views.approve_leave, name='approve_leave'),
+    path('leave/reject/<int:leave_id>/', views.reject_leave, name='reject_leave'),
+    path('assign/leave/<int:employee_id>/', views.assign_leave, name='assign_leave'),
+    path('monthly/work/report/', views.monthly_work_report, name='monthly_work_report'),
 ]

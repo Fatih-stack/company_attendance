@@ -1,0 +1,9 @@
+<h2>İzin Tanımla</h2>
+<form method="post">
+    {% csrf_token %}
+    <label for="start_date">Başlangıç Tarihi:</label>
+    <input type="date" id="start_date" name="start_date" required>
+    <label for="end_date">Bitiş Tarihi:</label>
+    <input type="date" id="end_date" name="end_date" required>
+    <button type="submit">İzin Tanımla</button>
+</form>

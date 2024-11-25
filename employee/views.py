@@ -47,12 +47,20 @@ def attendance_report(request):
         return render(request, 'attendance_report.html', {'attendances': attendances, 'late_attendances': late_attendances})
     return redirect('home')
 
-# İzin talebi oluşturma view
 def leave_request(request):
     if request.method == 'POST':
-        # Formdan gelen verilerle izin talebi oluşturulur
-        pass
+        start_date = request.POST.get('start_date')
+        end_date = request.POST.get('end_date')
+        LeaveRequest.objects.create(employee=request.user.employee, start_date=start_date, end_date=end_date)
+        return redirect('employee_leaves')
     return render(request, 'leave_request.html')
+
+def approve_leave(request, leave_id):
+    leave = LeaveRequest.objects.get(id=leave_id)
+    if request.user.is_staff:
+        leave.approved = True
+        leave.save()
+    return redirect('staff_dashboard')
 
 # Personel için izin raporu
 def leave_report(request):
@@ -60,15 +68,12 @@ def leave_report(request):
     leave_requests = LeaveRequest.objects.filter(employee=employee)
     return render(request, 'leave_report.html', {'leave_requests': leave_requests})
 
-# Yetkilinin izin talebini onaylama/reddetme view
-def approve_leave(request, leave_id):
+def reject_leave(request, leave_id):
+    leave = LeaveRequest.objects.get(id=leave_id)
     if request.user.is_staff:
-        leave_request = LeaveRequest.objects.get(id=leave_id)
-        if request.method == 'POST':
-            leave_request.approved = True
-            leave_request.save()
-        return redirect('leave_approval')
-    return redirect('home')
+        leave.approved = False
+        leave.save()
+    return redirect('staff_dashboard')
 
 def notify_staff_about_late(employee, attendance):
     if attendance.is_late:
@@ -119,6 +124,19 @@ def attendance_checkin(request):
 def employee_list(request):
     return render(request, 'employee_list.html')
 
+def employee_leaves(request):
+    leaves = LeaveRequest.objects.filter(employee=request.user.employee)
+    return render(request, 'employee_leaves.html', {'leaves': leaves})
+
+def assign_leave(request, employee_id):
+    if request.method == 'POST':
+        employee = Employee.objects.get(id=employee_id)
+        start_date = request.POST.get('start_date')
+        end_date = request.POST.get('end_date')
+        LeaveRequest.objects.create(employee=employee, start_date=start_date, end_date=end_date, approved=True)
+        return redirect('staff_dashboard')
+    return render(request, 'assign_leave.html')
+
 # Logout Sayfası
 def employee_logout(request):
     if request.method == 'POST':
@@ -148,7 +166,7 @@ def staff_dashboard(request):
         }
         return render(request, 'staff_dashboard.html', context)
     else:
-        return redirect('login')
+        return redirect('staff/login')
 
 class CustomLogoutView(LogoutView):
     def get(self, request, *args, **kwargs):

@@ -1,23 +1,22 @@
-<!-- staff_dashboard.html -->
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yetkili Yönetim Paneli</title>
     <link rel="stylesheet" href="{% static 'styles.css' %}">
 </head>
 <body>
-    <div class="dashboard-container">
-        <h1>Yetkili Yönetim Paneli</h1>
-        <table border="1" cellpadding="10" cellspacing="0">
+    <div class="dashboard-container" style="padding: 20px;">
+        <h2 style="text-align: center; color: #333;">Yetkili Yönetim Paneli</h2>
+        <table border="1" cellpadding="10" cellspacing="0" style="width: 100%; margin-top: 20px;">
             <thead>
                 <tr>
-                    <th>Çalışan</th>
+                    <th>Çalışan Adı</th>
                     <th>Tarih</th>
                     <th>Giriş Saati</th>
                     <th>Geç Kalma Süresi</th>
+                    <th>Kullanılan İzin Günleri</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,6 +31,34 @@
                         {% else %}
                             Zamanında Geldi
                         {% endif %}
+                    </td>
+                    <td>{{ attendance.employee.leave_days_used }} gün</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <!-- İzin Taleplerini Onaylama/Reddetme -->
+        <h3 style="margin-top: 40px;">İzin Talepleri</h3>
+        <table border="1" cellpadding="10" cellspacing="0" style="width: 100%; margin-top: 20px;">
+            <thead>
+                <tr>
+                    <th>Çalışan Adı</th>
+                    <th>Başlangıç Tarihi</th>
+                    <th>Bitiş Tarihi</th>
+                    <th>Durum</th>
+                    <th>İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for leave in leave_requests %}
+                <tr>
+                    <td>{{ leave.employee.name }}</td>
+                    <td>{{ leave.start_date }}</td>
+                    <td>{{ leave.end_date }}</td>
+                    <td>{{ leave.approved|yesno:"Onaylandı,Onay Bekliyor" }}</td>
+                    <td>
+                        <a href="{% url 'approve_leave' leave.id %}" class="button">Onayla</a>
+                        <a href="{% url 'reject_leave' leave.id %}" class="button">Reddet</a>
                     </td>
                 </tr>
                 {% endfor %}

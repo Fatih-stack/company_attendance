@@ -1,0 +1,17 @@
+<h2>Aylık Çalışma Saatleri Raporu</h2>
+<table border="1" cellpadding="10" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Çalışan Adı</th>
+            <th>Toplam Çalışma Saatleri</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for employee, hours in employees_report.items %}
+        <tr>
+            <td>{{ employee.name }}</td>
+            <td>{{ hours }} saat</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
